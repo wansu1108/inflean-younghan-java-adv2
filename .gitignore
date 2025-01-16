@@ -1,3 +1,6 @@
-*.class
-
-*.DS_Store
+/bin/
+/.gradle/
+/.settings/
+/.classpath
+/.gitignore
+/.project
