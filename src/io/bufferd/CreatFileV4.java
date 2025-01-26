@@ -6,17 +6,21 @@ import java.io.IOException;
 import static io.bufferd.BufferedConst.*;
 
 /**
- * OutputStream 성능 최적화(1) - 최적화 X
- * 1바이트 마다, 시스템 콜 호출, 비효율
+ * OutputStream 성능 최적화(4) - write(FILE_SIZE)
+ * 파일 사이즈만큼, 한번에 쓰기 -> 버퍼사이즈는 일정 크기 이상 올려가면 성능의 차이가 없음, 최적화 사이즈 4KB,8KB,16KB
  */
-public class CreatFileV1 {
+public class CreatFileV4 {
     public static void main(String[] args) throws IOException {
         FileOutputStream fos = new FileOutputStream(FILE_NAME);
         long startMillis = System.currentTimeMillis();
-        
-        for(int i=0; i < FILE_SIZE; i++){
-            fos.write(65);
+
+        byte[] buffer = new byte[FILE_SIZE];
+
+        for(int i=0; i<FILE_SIZE; i++){
+            buffer[i] = 65;
         }
+        
+        fos.write(buffer);
         fos.close();
 
         long endMillis = System.currentTimeMillis();

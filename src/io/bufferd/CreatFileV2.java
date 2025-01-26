@@ -7,6 +7,7 @@ import static io.bufferd.BufferedConst.*;
 
 /**
  * OutputStream 성능 최적화(2) - byte[]
+ * 시스템 콜 호출 횟수 감소 -> 시스템 성능 증가 , 바이트 배열 사용의 번거로움
  */
 public class CreatFileV2 {
     public static void main(String[] args) throws IOException {

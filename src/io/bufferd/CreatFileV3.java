@@ -1,23 +1,25 @@
 package io.bufferd;
 
+import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static io.bufferd.BufferedConst.*;
 
 /**
- * OutputStream 성능 최적화(1) - 최적화 X
- * 1바이트 마다, 시스템 콜 호출, 비효율
+ * OutputStream 성능 최적화(3) - BufferedXXX 사용
+ * 보조 스트림 BufferedOutputStream 사용 , 내부에 byte[] 코드가 존재 한다.
  */
-public class CreatFileV1 {
+public class CreatFileV3 {
     public static void main(String[] args) throws IOException {
         FileOutputStream fos = new FileOutputStream(FILE_NAME);
+        BufferedOutputStream bos = new BufferedOutputStream(fos, BUFFER_SIZE);
         long startMillis = System.currentTimeMillis();
         
         for(int i=0; i < FILE_SIZE; i++){
-            fos.write(65);
+            bos.write(65);
         }
-        fos.close();
+        bos.close();
 
         long endMillis = System.currentTimeMillis();
 
