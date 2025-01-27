@@ -1,0 +1,4 @@
+Hello java!
+10
+true
+Hello java!
