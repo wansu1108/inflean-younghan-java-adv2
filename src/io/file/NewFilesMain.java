@@ -51,9 +51,8 @@ public class NewFilesMain {
         Files.move(file, newFile, StandardCopyOption.REPLACE_EXISTING); System.out.println("File moved/renamed");
         
         // 10. getLastModifiedTime(): 마지막으로 수정된 시간을 반환
-        System.out.println("Last modified: " +
-        Files.getLastModifiedTime(newFile));
-        
+        System.out.println("Last modified: " + Files.getLastModifiedTime(newFile));
+
         // 추가: readAttributes(): 파일의 기본 속성들을 한 번에 읽기
         BasicFileAttributes attrs = Files.readAttributes(newFile,BasicFileAttributes.class);
         System.out.println("===== Attributes =====");
