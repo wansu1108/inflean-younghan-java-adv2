@@ -42,6 +42,6 @@ public class OldFileMain {
 
         // 10. lastModified(): 마지막으로 수정된 시간을 반환
         long lastModified = newFile.lastModified(); 
-        System.out.println("Last modified: " + new Date(lastModified));
+        System.out.println("Last modified: " + new Date(lastModified)); 
     }
 }
