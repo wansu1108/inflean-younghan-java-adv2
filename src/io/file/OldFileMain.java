@@ -20,7 +20,8 @@ public class OldFileMain {
         System.out.println("Directory created: " + dirCreated);
 
         // 4. delete(): 파일이나 디렉토리를 삭제
-        // boolean deleted = file.delete(); //System.out.println("File deleted: " + deleted);
+        // boolean deleted = file.delete(); 
+        //System.out.println("File deleted: " + deleted);
 
         // 5. isFile(): 파일인지 확인 
         System.out.println("Is file: " + file.isFile());
@@ -38,7 +39,7 @@ public class OldFileMain {
         File newFile = new File("temp/newExample.txt"); 
         boolean renamed = file.renameTo(newFile); 
         System.out.println("File renamed: " + renamed);
-        
+
         // 10. lastModified(): 마지막으로 수정된 시간을 반환
         long lastModified = newFile.lastModified(); 
         System.out.println("Last modified: " + new Date(lastModified));
