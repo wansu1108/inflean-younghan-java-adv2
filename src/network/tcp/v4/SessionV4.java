@@ -1,4 +1,4 @@
-package network.tcp.v3;
+package network.tcp.v4;
 
 import static util.MyLogger.log;
 
@@ -7,22 +7,26 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-// 멀티스레드
-// 신규 스레드 생성, 메인에서 전달해준 소켓으로 클라이언트와 tcp연결을 한다.
-// 주의 : 자원정리에 대한 문제점이 있는 코드
-public class SessionV3 implements Runnable{
+import static network.tcp.SocketCloseUtil.*;
+
+// 멀티스레드 + 자원정리
+public class SessionV4 implements Runnable{
 
     private final Socket socket;
 
-    public SessionV3(Socket socket) {
+    public SessionV4(Socket socket) {
         this.socket = socket;
     }
 
     @Override
     public void run() {
+        // finally 블록에서 변수에 접근해야 한다. 따라서 try 블록 안에서 선언할 수 없다
+        DataOutputStream output = null;
+        DataInputStream input = null;
+
         try {
-            DataInputStream input = new DataInputStream(socket.getInputStream());
-            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+            input = new DataInputStream(socket.getInputStream());
+            output = new DataOutputStream(socket.getOutputStream());
             log("소켓 연결: " + socket);
         
             while(true) {
@@ -37,15 +41,12 @@ public class SessionV3 implements Runnable{
                 output.writeUTF(toSend);
                 log("Client <- Server:" + toSend);
             }
-
-        // 자원 정리
-        log("연결 종료: " + socket);
-        input.close();
-        output.close();
-        socket.close();
-            
+    
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            closeAll(socket, input, output);
+            log("연결 종료: " + socket);
         }
     }
 }

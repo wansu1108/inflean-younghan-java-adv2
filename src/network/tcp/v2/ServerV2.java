@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-// TCP통신 : 서버
-// exit문자 입력시 종료
+/**
+ * 심플 콘솔 채팅 프로그램
+ *  1. exit문자 입력시 종료
+ */
 public class ServerV2 {
 
     private static final int PORT = 12345;

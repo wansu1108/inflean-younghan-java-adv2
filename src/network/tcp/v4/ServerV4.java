@@ -1,4 +1,4 @@
-package network.tcp.v3;
+package network.tcp.v4;
 
 import static util.MyLogger.log;
 
@@ -6,9 +6,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-// 멀티스레드, 여러 클라이언트와 동시 채팅
 // 서버소켓으로, 클라이언트 연결 요청까지 대기, tcp연결 되면 Session객체에 소켓을 전달한다.
-public class ServerV3 {
+public class ServerV4 {
 
     private static final int PORT = 12345;
     
@@ -20,7 +19,7 @@ public class ServerV3 {
         while(true) {
             Socket socket = serverSocket.accept(); // 블로킹 => tcp연결이 될 때 까지
 
-            SessionV3 session = new SessionV3(socket);
+            SessionV4 session = new SessionV4(socket);
             Thread thread = new Thread(session);
             thread.start();
         }
