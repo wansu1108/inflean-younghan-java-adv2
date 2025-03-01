@@ -1,4 +1,4 @@
-package network.exception;
+package network.exception.connect;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -1,4 +1,4 @@
-package network.exception.sotimeout;
+package network.exception.connect;
 
 import java.io.IOException;
 import java.io.InputStream;
