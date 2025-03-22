@@ -1,12 +1,14 @@
 package network.tcp.mychat;
 
+import java.util.UUID;
+
 public class User {
     private String id;
     private String name;
     private boolean join;
 
-    public User(String id, String name) {
-        this.id = id;
+    public User(String name) {
+        this.id = UUID.randomUUID().toString().substring(0,8);
         this.name = name;
         this.join = false;
     }
@@ -27,7 +29,7 @@ public class User {
         return join;
     }
 
-    public void join() {
-        this.join = true;
+    public void setJoin(boolean join) {
+        this.join = join;
     }
 }
