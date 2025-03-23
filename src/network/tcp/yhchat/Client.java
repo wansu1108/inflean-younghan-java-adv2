@@ -41,9 +41,8 @@ public class Client {
 
         Thread readThread = new Thread(readHandler, "readHandler");
         Thread writeThread = new Thread(writeHandler, "writeHandler");
-        readThread.run();
-        writeThread.run();   
-        
+        readThread.start();
+        writeThread.start();
     }
 
     public synchronized void close() {

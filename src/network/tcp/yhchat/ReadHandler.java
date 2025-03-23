@@ -19,8 +19,10 @@ public class ReadHandler implements Runnable {
     @Override
     public void run() {
         try {
-            String received = input.readUTF();
-            System.out.println(received);
+            while (true) {
+                String received = input.readUTF();
+                System.out.println(received);   
+            }
         } catch (IOException e) {
             log(e);
         } finally {

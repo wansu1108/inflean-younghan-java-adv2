@@ -28,6 +28,7 @@ public class WriteHandler implements Runnable {
             String username = inputUsername(scanner);
             output.writeUTF("/join" + DELIMITER + username);
 
+            System.out.println("채팅방에 입장하였습니다.");
             while (true) {
                 String toSend = scanner.nextLine();
 
