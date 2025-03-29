@@ -8,7 +8,8 @@ public class ServerMain {
 
         SessionManager sessionManager = new SessionManager();
         // CommandManager commandManager = new CommnadManagerV1(sessionManager);
-        CommandManager commandManager = new CommnadManagerV2(sessionManager);
+        // CommandManager commandManager = new CommnadManagerV2(sessionManager);
+        CommandManager commandManager = new CommnadManagerV3(sessionManager);
 
         Server server = new Server(PORT, sessionManager, commandManager);
         server.start();
