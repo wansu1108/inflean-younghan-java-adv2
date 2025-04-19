@@ -1,4 +1,4 @@
-package was.v5;
+package was.v5.my;
 
 import java.io.IOException;
 

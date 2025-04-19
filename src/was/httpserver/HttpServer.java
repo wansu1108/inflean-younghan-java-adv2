@@ -1,4 +1,4 @@
-package was.v5.my;
+package was.httpserver;
 
 import static util.MyLogger.log;
 
@@ -8,13 +8,15 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class HttpServerV5 {
+public class HttpServer {
 
     private final int port;
     private final ExecutorService es = Executors.newFixedThreadPool(10);
+    private final ServletManager servletManager;
     
-    public HttpServerV5(int port) {
+    public HttpServer(int port, ServletManager servletManager) {
         this.port = port;
+        this.servletManager = servletManager;
     }
 
     public void start() throws IOException {
@@ -23,7 +25,7 @@ public class HttpServerV5 {
 
         while(true) {
             Socket socket = serverSocket.accept();
-            es.submit(new MyHttpRequestHandlerV5(socket));
+            es.submit(new HttpRequestHandler(socket, servletManager));
         }
     }
 }
