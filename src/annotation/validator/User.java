@@ -1,12 +1,9 @@
 package annotation.validator;
 
-import annotation.validator.my.MyNotEmpty;
-import annotation.validator.my.MyRange;
-
 public class User {
-    @MyNotEmpty
+    @NotEmpty(message = "이름이 비어있습니다.")
     private String name;
-    @MyRange(min = 1, max = 999)
+    @Range(min = 1, max = 100, message = "나이는 1과 100 사이어야 합니다.")
     private int age;
 
     public User(String name, int age) {

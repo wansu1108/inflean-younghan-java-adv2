@@ -1,12 +1,9 @@
 package annotation.validator;
 
-import annotation.validator.my.MyNotEmpty;
-import annotation.validator.my.MyRange;
-
 public class Team {
-    @MyNotEmpty
+    @NotEmpty(message = "이름이 비어있습니다.")
     private String name;
-    @MyRange(min = 1, max = 999)
+    @Range(min = 1, max = 999, message = "회원수는 1과 999 사이어야 합니다.")
     private int memberCount;
 
     public Team(String name, int memberCount) {
