@@ -1,0 +1,33 @@
+package was.v9.my;
+
+import was.httpserver.HttpResponse;
+import was.httpserver.servlet.annotation.Mapping;
+
+public class SiteControllerV9 {
+
+    @Mapping("/")
+    public void home(HttpResponse response) {
+        response.writeBody("<h1>HOME</h1>");
+        response.writeBody("<ul>");
+        response.writeBody("<li><a href='/site1'>site1</a></li>");
+        response.writeBody("<li><a href='/site2'>site2</a></li>");
+        response.writeBody("<li><a href='/search?q=hello'>검색</a></li>");
+        response.writeBody("</ul>");
+    }
+
+    @Mapping("/site1")
+    public void page1(HttpResponse response) {
+        response.writeBody("<h1>Site1</h1>");
+    }
+
+    @Mapping("/site2")
+    public void page2(HttpResponse response) {
+        response.writeBody("<h1>Site2</h1>");
+    }
+
+    // 주석풀면 에러발생, Duplicate pathmapping
+    // @Mapping("/site2")
+    // public void page3(HttpResponse response) {
+    //     response.writeBody("<h1>Site2</h1>");
+    // }
+}
