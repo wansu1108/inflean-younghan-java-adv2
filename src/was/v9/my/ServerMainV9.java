@@ -12,7 +12,7 @@ public class ServerMainV9 {
 
     public static void main(String[] args) throws IOException {
         List<Object> controllers = List.of(new SiteControllerV9(), new SearchControllerV9());
-        AnnotationServletV3 annotationServlet = new AnnotationServletV3(controllers);
+        was.httpserver.servlet.annotation.AnnotationServletV3 annotationServlet = new was.httpserver.servlet.annotation.AnnotationServletV3(controllers);
 
         ServletManager servletManager = new ServletManager();
         servletManager.setDefaultServlet(annotationServlet);
