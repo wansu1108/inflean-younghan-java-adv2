@@ -18,9 +18,9 @@ import io.member.impl.ObjectMemberRepository;
 public class MemberConsoleMain {
 
     // private final static MemberRepository memberRepository = new MemoryMemberRepository(); // (1)
-    // private final static MemberRepository memberRepository = new FileMemberRepository(); // (2)
+    private final static MemberRepository memberRepository = new FileMemberRepository(); // (2)
     // private final static MemberRepository memberRepository = new DataMemberRepository(); // (3)
-    private final static MemberRepository memberRepository = new ObjectMemberRepository(); // (4)
+    // private final static MemberRepository memberRepository = new ObjectMemberRepository(); // (4)
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

@@ -18,9 +18,8 @@ public class HttpRequest {
     public HttpRequest(BufferedReader reader) throws IOException {
         parseRequestLine(reader);
         parseHeaders(reader);
-        // 메시지 바디는 이후에 처리
+        parseBody(reader);
     }
-
     // GET /search?key1=value1&key2=value2 HTTP/1.1
     private void parseRequestLine(BufferedReader reader) throws IOException {
         String line = reader.readLine();
@@ -44,7 +43,7 @@ public class HttpRequest {
 
     // key1=value1&key2=value2
     private void parseQueryParameters(String queryString) {
-        for(String param : queryString.split("&")) {
+        for (String param : queryString.split("&")) {
             String[] keyValue = param.split("=");
             String key = URLDecoder.decode(keyValue[0], UTF_8);
             String value = keyValue.length > 1 ? URLDecoder.decode(keyValue[1], UTF_8) : "";
@@ -57,11 +56,18 @@ public class HttpRequest {
     //
     private void parseHeaders(BufferedReader reader) throws IOException {
         String line;
-        while(!(line = reader.readLine()).isEmpty()) {
+        while (!(line = reader.readLine()).isEmpty()) {
             String[] headerParts = line.split(":");
             // trim() 앞 뒤에 공백 제거
             headers.put(headerParts[0].trim(), headerParts[1].trim());
         }
+    }
+
+    // Host: localhost:12345
+    // Connection: keep-alive
+    // 
+    // id=id1&name=lee&age=28
+    private void parseBody(BufferedReader reader) throws IOException {
     }
 
     public String getMethod() {
@@ -71,7 +77,7 @@ public class HttpRequest {
     public String getPath() {
         return path;
     }
-    
+
     public String getParameter(String name) {
         return queryParameters.get(name);
     }
