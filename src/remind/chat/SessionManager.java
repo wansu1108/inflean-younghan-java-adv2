@@ -35,4 +35,11 @@ public class SessionManager {
             }
         }
     }
+
+    public synchronized void closeAll() {
+        for(Session session : sessions) {
+            session.close();
+        }
+        sessions.clear();
+    }
 }

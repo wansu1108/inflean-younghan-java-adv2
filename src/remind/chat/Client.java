@@ -27,6 +27,9 @@ public class Client {
     private final Socket socket; // client객체는 소켓객체가 없으면 성립이 안됨
     private final DataInputStream input;
     private final DataOutputStream output;
+
+    private ClientWriteHandler writeHandler;
+    private ClientReadHandler readHandler;
     private boolean isClose = false;
 
     public Client(String host, int port) throws IOException {
@@ -40,8 +43,10 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         join(scanner);
 
-        Thread writeThread = new Thread(new ClientWritHandler(output, scanner, this));
-        Thread readThread = new Thread(new ClientReadHandler(input, this));
+        writeHandler = new ClientWriteHandler(output, scanner, this);
+        readHandler = new ClientReadHandler(input, this);
+        Thread writeThread = new Thread(writeHandler);
+        Thread readThread = new Thread(readHandler);
         writeThread.start();
         readThread.start();
     }
@@ -62,6 +67,8 @@ public class Client {
             return;
         }
         
+        readHandler.close();
+        writeHandler.close();
         SocketCloseUtil.closeAll(socket, input, output);
         isClose = true;
         log("채팅 프로그램이 종료되었습니다.");

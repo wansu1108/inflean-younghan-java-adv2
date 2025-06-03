@@ -8,6 +8,7 @@ import java.io.EOFException;
 public class ClientReadHandler implements Runnable {
     private DataInputStream input;
     private Client client;
+    private boolean isClose;
 
     public ClientReadHandler(DataInputStream input, Client client) {
         this.input = input;
@@ -28,5 +29,16 @@ public class ClientReadHandler implements Runnable {
         } finally {
             client.close();
         }
+    }
+
+    public synchronized void close() {
+        if(isClose) {
+            return;
+        }
+
+        // 필요시 작성
+
+        log("readHandler 종료");
+        isClose = true;
     }
 }
