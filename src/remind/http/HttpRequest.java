@@ -2,6 +2,8 @@ package remind.http;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,9 +47,9 @@ public class HttpRequest {
         if(parts.length != 1 && parts[1] != null && !parts[1].isEmpty()) {
             for(String queryParameter : parts[1].split("\\&")) {
                 String[] queryParameterParts = queryParameter.split("\\=");
-                String value = (queryParameterParts.length == 1 && queryParameterParts[1].isEmpty()) ? 
-                    "" : queryParameterParts[1];
-                queryParameters.put(queryParameterParts[0], value);
+                String key = URLDecoder.decode(queryParameterParts[0], StandardCharsets.UTF_8);
+                String value = (queryParameterParts.length > 1) ? URLDecoder.decode(queryParameterParts[1], StandardCharsets.UTF_8) : "";
+                queryParameters.put(key, value);
             }
         }
     }
@@ -65,8 +67,8 @@ public class HttpRequest {
         return path;
     }
 
-    public Map<String, String> getQueryParameters() {
-        return queryParameters;
+    public String getParameter(String key) {
+        return queryParameters.get(key);
     }
 
     public Map<String, String> getHeaders() {

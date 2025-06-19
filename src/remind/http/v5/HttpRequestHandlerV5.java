@@ -1,4 +1,4 @@
-package remind.http.v4;
+package remind.http.v5;
 
 import static remind.common.MyLogger.log;
 
@@ -14,7 +14,7 @@ import remind.http.SocketCloseUtil;
 
 import static java.nio.charset.StandardCharsets.*;
 
-public class HttpRequestHandlerV4 implements Runnable {
+public class HttpRequestHandlerV5 implements Runnable {
 
     private final Socket socket;
     private final BufferedReader input;
@@ -23,15 +23,19 @@ public class HttpRequestHandlerV4 implements Runnable {
     private final HttpRequest request;
     private final HttpResponse response;
 
+    private final ServletManager servletManager;
+
     private boolean closed = false;
 
-    public HttpRequestHandlerV4(Socket socket) throws IOException {
+    public HttpRequestHandlerV5(Socket socket, ServletManager servletManager) throws IOException {
         this.socket = socket;
         input = new BufferedReader(new InputStreamReader(socket.getInputStream(), UTF_8));
         output = new PrintWriter(socket.getOutputStream(), false, UTF_8);
 
         this.request = new HttpRequest(input);
         this.response = new HttpResponse(output);
+
+        this.servletManager = servletManager;
     }
 
     @Override
@@ -45,17 +49,8 @@ public class HttpRequestHandlerV4 implements Runnable {
             log("[" + request.getMethod() + "][" + request.getPath() + "]");
 
             log("HTTP 응답 생성중...");
-            if (request.getPath().equals("/site1")) {
-                goToSite1();
-            } else if (request.getPath().equals("/site2")) {
-                goToSite2();
-            } else if (request.getPath().equals("/search")) {
-                goToSearch();
-            } else if (request.getPath().equals("/")) {
-                goToHome();
-            } else {
-                goTo404Page();
-            }
+            servletManager.excute(request, response);
+            response.flush();
             log("HTTP 응답 전달 완료");
         } catch (Exception e) {
             log(e);
