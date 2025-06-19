@@ -1,8 +1,13 @@
 package remind.http;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import remind.http.servlet.DiscardServet;
+import remind.http.servlet.reflection.ReflectionServlet;
+import remind.http.servlet.reflection.SearchController;
+import remind.http.servlet.reflection.SiteController;
 import remind.http.v1.HttpServerV1;
 import remind.http.v2.HttpServerV2;
 import remind.http.v3.HttpServerV3;
@@ -19,11 +24,17 @@ public class HttpServerMain {
     private static final int PORT = 12345;
     public static void main(String[] args) throws IOException, InterruptedException {
         ServletManager servletManager = new ServletManager();
+        // servletManager.add("/", new HomeServlet());
+        // servletManager.add("/site1", new Site1Servlet());
+        // servletManager.add("/site2", new Site2Servlet());
+        // servletManager.add("/search", new SearchServlet());
+        List<Object> controllers = new ArrayList<>();
+        controllers.add(new SiteController());
+        controllers.add(new SearchController());
+
         servletManager.add("/", new HomeServlet());
-        servletManager.add("/site1", new Site1Servlet());
-        servletManager.add("/site2", new Site2Servlet());
-        servletManager.add("/search", new SearchServlet());
         servletManager.add("/favicon.ico", new DiscardServet());
+        servletManager.setDefaultServlet(new ReflectionServlet(controllers));
 
         HttpServerV5 httpserver = new HttpServerV5(PORT, servletManager);
         httpserver.start();
