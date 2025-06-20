@@ -1,11 +1,11 @@
 package remind.http;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import remind.http.servlet.DiscardServet;
-import remind.http.servlet.annotation.AnnotationServlet;
+import remind.http.servlet.annotation.AnnotationServletV1;
+import remind.http.servlet.annotation.AnnotationServletV2;
 import remind.http.servlet.reflection.ReflectionServlet;
 import remind.http.servlet.reflection.SearchController;
 import remind.http.servlet.reflection.SiteController;
@@ -32,7 +32,7 @@ public class HttpServerMain {
         List<Object> controllers = List.of(new SiteController(), new SearchController());
 
         servletManager.add("/favicon.ico", new DiscardServet());
-        servletManager.setDefaultServlet(new AnnotationServlet(controllers));
+        servletManager.setDefaultServlet(new AnnotationServletV2(controllers));
 
         HttpServerV5 httpserver = new HttpServerV5(PORT, servletManager);
         httpserver.start();

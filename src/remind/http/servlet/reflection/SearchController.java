@@ -7,7 +7,7 @@ import remind.http.v7.Mapping;
 public class SearchController {
 
     @Mapping("/")
-    public void home(HttpRequest request, HttpResponse response) {
+    public void home(HttpResponse response) {
         response.write("<h1>HOME_</h1>");
         response.write("<ul>");
         response.write("<li><a href='/site1'>site1</a></li>");
