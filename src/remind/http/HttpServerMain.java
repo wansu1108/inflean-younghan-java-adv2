@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import remind.http.servlet.DiscardServet;
+import remind.http.servlet.annotation.AnnotationServlet;
 import remind.http.servlet.reflection.ReflectionServlet;
 import remind.http.servlet.reflection.SearchController;
 import remind.http.servlet.reflection.SiteController;
@@ -28,13 +29,10 @@ public class HttpServerMain {
         // servletManager.add("/site1", new Site1Servlet());
         // servletManager.add("/site2", new Site2Servlet());
         // servletManager.add("/search", new SearchServlet());
-        List<Object> controllers = new ArrayList<>();
-        controllers.add(new SiteController());
-        controllers.add(new SearchController());
+        List<Object> controllers = List.of(new SiteController(), new SearchController());
 
-        servletManager.add("/", new HomeServlet());
         servletManager.add("/favicon.ico", new DiscardServet());
-        servletManager.setDefaultServlet(new ReflectionServlet(controllers));
+        servletManager.setDefaultServlet(new AnnotationServlet(controllers));
 
         HttpServerV5 httpserver = new HttpServerV5(PORT, servletManager);
         httpserver.start();
